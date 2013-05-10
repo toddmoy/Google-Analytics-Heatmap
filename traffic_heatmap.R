@@ -23,13 +23,13 @@ ga <- RGoogleAnalytics()
 ( ga.profiles <- ga$GetProfileData(access_token) )
 
 # Build the query string. Learn more http://ga-dev-tools.appspot.com/explorer/
-query$Init(start.date = "2013-01-01",               # Set start date
-           end.date = "2013-03-31",                 # Set end date
+query$Init(start.date = "2013-01-01",               # Set start date.
+           end.date = "2013-03-31",                 # Set end date.
            dimensions = "ga:dayOfWeek, ga:hour",    
-           metrics = "ga:pageviews",                # Change
-           max.results = 10000,                     # Must be >= time period (days) * 24
+           metrics = "ga:pageviews",                # Choose the metric you care about.
+           max.results = 10000,                     # Must be >= time period (days) * 24.
            table.id = paste("ga:",ga.profiles$id[1],sep="",collapse=","), 
-           # table.id = "ga:99999999", # Replace data with your table ID
+           # table.id = "ga:99999999", # Replace data with your table ID.
            access_token=access_token)
 
 # Query the API and store the result in a Data Frame.
