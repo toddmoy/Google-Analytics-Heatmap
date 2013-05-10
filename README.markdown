@@ -1,6 +1,6 @@
 # Google Analytics Heatmap
 
-# Description
+## Description
 
 This script produces a heatmap that shows pageviews (or any metric, really) in a days x hours matrix. It pulls data directly from Google Analytics.
 
