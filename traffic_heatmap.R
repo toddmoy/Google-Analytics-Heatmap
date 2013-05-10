@@ -28,8 +28,8 @@ query$Init(start.date = "2013-01-01",               # Set start date
            dimensions = "ga:dayOfWeek, ga:hour",    
            metrics = "ga:pageviews",                # Change
            max.results = 10000,                     # Must be >= time period (days) * 24
-           table.id = paste("ga:",ga.profiles$id[1],sep="",collapse=","), 
-           # table.id = "ga:99999999", # Replace data with your table ID
+           # table.id = paste("ga:",ga.profiles$id[1],sep="",collapse=","), 
+           table.id = "ga:65395580", # Replace data with your table ID
            access_token=access_token)
 
 # Query the API and store the result in a Data Frame.
