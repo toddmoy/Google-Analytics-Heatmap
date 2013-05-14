@@ -11,4 +11,4 @@ This script produces a heatmap that shows pageviews (or any metric, really) in a
 
 ## Usage
 
-TBD
+See [this post](http://viget.com/inspire/2889) until proper instructions are written. 
