@@ -2,8 +2,8 @@
 # This script produces a heatmap that shows pageviews (or any metric, really)
 # in a days x hours matrix. It pulls data directly from Google Analytics.
 
-require("RGoogleAnalytics")
-require("RColorBrewer")
+library("RGoogleAnalytics")
+library("RColorBrewer")
 
 
 # CONNECT AND QUERY -----------------------------------------------------------
@@ -16,21 +16,28 @@ access_token <- query$authorize()
 
 ga <- RGoogleAnalytics()
 
-# Get list of profiles and echo to the console. You will need to choose one.
-# Alternatively, you can uncomment the second table.id assignment below and
-# replace "99999999" with your profile ID. Be sure to comment out the first 
-# table.id if you do.
+# Get list of profiles and echo to the console. You will use the left-most number for the
+# profile you want to query in the next step.
 ( ga.profiles <- ga$GetProfileData(access_token) )
 
-# Build the query string. Learn more http://ga-dev-tools.appspot.com/explorer/
-query$Init(start.date = "2013-01-01",               # Set start date.
-           end.date = "2013-03-31",                 # Set end date.
-           dimensions = "ga:dayOfWeek, ga:hour",    
-           metrics = "ga:pageviews",                # Choose the metric you care about.
-           max.results = 10000,                     # Must be >= time period (days) * 24.
-           table.id = paste("ga:",ga.profiles$id[1],sep="",collapse=","), 
-           # table.id = "ga:99999999", # Replace data with your table ID.
-           access_token=access_token)
+# Edit the query parameters
+my_profile    <- 1              # Your profile number (not the GA ID number)
+my_start_date <- "2013-01-01"   # Query date range
+my_end_date   <- "2013-03-31"
+
+# Build the query string. 
+# For more info on dimensions, filters, and other query configuration options, see: 
+# http://ga-dev-tools.appspot.com/explorer/
+query$Init(start.date = my_start_date,
+           end.date = my_end_date,
+           dimensions = "ga:dayOfWeek, ga:hour",
+           metrics = "ga:pageviews",
+           max.results = 10000,
+           access_token=access_token,
+           table.id = paste("ga:",ga.profiles$id[my_profile],sep="",collapse=",")  
+           # If you know the exact table id you want to use (uncommon), replace the line above with:
+           # table.id = "ga:99999999" # Replace 999s with your table ID.
+           )
 
 # Query the API and store the result in a Data Frame.
 ga.data <- ga$GetReportData(query)  
@@ -69,4 +76,5 @@ heatmap(heatmap_data,
         revC=TRUE,                                        # Start the week at the top of the Y axis.
         scale="none",                                     # Map color density to entire week, not a day or hour slice.
         Rowv=NA, Colv=NA,                                 # Don't use a dendogram.
-        main="Pageviews by Day and Hour", xlab="Hour")    # Axis labels.
+        main="Pageviews by Day and Hour",                 # Title.
+        xlab="Hour")                                      # X-axis label.
