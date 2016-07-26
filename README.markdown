@@ -13,4 +13,4 @@ This script produces a heatmap that shows pageviews (or any metric, really) in a
 
 ## Usage
 
-See [this post](http://viget.com/inspire/2889) until proper instructions are written. 
+See [this post](https://www.viget.com/articles/how-to-build-a-traffic-heatmap-using-google-analytics-and-r) until proper instructions are written. 
